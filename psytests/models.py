@@ -6,7 +6,7 @@ class MockUser(models.Model):
     Fake user model to test psytest relations. 
     Delete later. 
     """
-    name = models.CharField
+    name = models.CharField(max_length=20)
     
 
 
@@ -55,6 +55,7 @@ class Question(models.Model):
     question_type = models.CharField(max_length=10, choices=[("likert", "likert"), ("fc", 'forced-choice')])
 
 
+
 class Response(models.Model):
     """
     Ответ указывает на то, какой ответ дал пользователь на конкретный пункт.
@@ -62,18 +63,25 @@ class Response(models.Model):
     """
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
-
-
-# class Norm(models.Model):
+    value = models.FloatField() 
 
 
 
-# class Result(models.Model):
-#     """
-#     Результат связывает пользователя и тест. Он содержит значения по всем шкалам теста для пользователя.
-#     Вычисляется с помощью шкалы и нормы. 
-#     Можно использовать тут джейсон? 
-#     Или не пользователя и теста а пользователя и шкалу? Да, так логичнее, пожалуй. 
-#     """
+class Norm(models.Model):
+    scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
+    group = models.CharField(max_length=50, default="ALL")
+
+
+
+class Result(models.Model):
+    """
+    Результат связывает пользователя и тест. Он содержит значения по всем шкалам теста для пользователя.
+    Вычисляется с помощью шкалы и нормы. 
+    Можно использовать тут джейсон? 
+    Или не пользователя и теста а пользователя и шкалу? Да, так логичнее, пожалуй. 
+    """
+    scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
+    user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    value = models.FloatField()
 
 
