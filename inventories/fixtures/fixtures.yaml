@@ -4,6 +4,12 @@
     name: Focker
     created: 2019-09-12 18:07:59.981752+00:00
     updated: 2019-09-12 18:07:59.981773+00:00
+- model: inventories.mockuser
+  pk: 2
+  fields:
+    name: Boris
+    created: 2019-09-12 18:24:12.455466+00:00
+    updated: 2019-09-12 18:24:12.455501+00:00
 - model: inventories.item
   pk: 1
   fields:
@@ -32,6 +38,13 @@
     author: 1
     created: 2019-09-12 18:16:41.892440+00:00
     updated: 2019-09-12 18:16:41.892460+00:00
+- model: inventories.item
+  pk: 5
+  fields:
+    "\u0441ontent": Do you love beans?
+    author: 2
+    created: 2019-09-12 18:24:45.816620+00:00
+    updated: 2019-09-12 18:24:45.816640+00:00
 - model: inventories.scale
   pk: 1
   fields:
@@ -50,6 +63,15 @@
     author: 1
     created: 2019-09-12 18:15:44.146172+00:00
     updated: 2019-09-12 18:15:44.146192+00:00
+- model: inventories.scale
+  pk: 3
+  fields:
+    title: Love for beans
+    description: Beany beany scale
+    method: sum
+    author: 2
+    created: 2019-09-12 18:25:04.612939+00:00
+    updated: 2019-09-12 18:25:04.612967+00:00
 - model: inventories.question
   pk: 1
   fields:
@@ -106,6 +128,20 @@
     author: 1
     created: 2019-09-12 18:16:55.357848+00:00
     updated: 2019-09-12 18:16:55.357868+00:00
+- model: inventories.question
+  pk: 5
+  fields:
+    item: 5
+    scale: 3
+    question_type: likert
+    display_options:
+      max: 6
+      maxLabel: LOVE BEANS
+      min: 0
+      minLabel: NO BEANS
+    author: 2
+    created: 2019-09-12 18:25:33.960627+00:00
+    updated: 2019-09-12 18:25:33.960647+00:00
 - model: inventories.inventory
   pk: 1
   fields:
@@ -121,3 +157,15 @@
     - 2
     - 3
     - 4
+- model: inventories.inventory
+  pk: 2
+  fields:
+    title: Simple Second
+    description: Test of beans
+    details: Many many many many beans beans
+    instruction: Cook beans eat beans
+    author: 2
+    created: 2019-09-12 18:26:07.641303+00:00
+    updated: 2019-09-12 18:26:07.641324+00:00
+    questions:
+    - 5
