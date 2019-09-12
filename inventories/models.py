@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class MockUser(models.Model):
@@ -7,6 +8,11 @@ class MockUser(models.Model):
     Delete later. 
     """
     name = models.CharField(max_length=20)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
     
 
 
@@ -15,6 +21,12 @@ class Item(models.Model):
     Пункт - это структурная единица шкалы. Он содержит какой-то стимул. 
     """
     сontent = models.CharField(max_length=500)
+    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.сontent
 
 
 
@@ -28,20 +40,12 @@ class Scale(models.Model):
     description = models.CharField(max_length=500)
     method = models.CharField(max_length=10, choices=[("sum", "sum"), ("avg", "average")], default="avg")
     items = models.ManyToManyField(Item, through='Question')
-
-
-
-class Psytest(models.Model):
-    """
-    Тест ничего не знает о шкалах и о компоновке вопросов.
-    Он знает только том, какие вопросы в него включены.
-    Тест содержит логику представления инструмента - инструкцию, сортировку и т.д. 
-    """
-    title = models.CharField(max_length=40)
-    scales = models.ManyToManyField(Scale)
-    description = models.CharField(max_length=500)
-    instruction = models.CharField(max_length=500)
     author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 
@@ -52,7 +56,34 @@ class Question(models.Model):
     """
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
-    question_type = models.CharField(max_length=10, choices=[("likert", "likert"), ("fc", 'forced-choice')])
+    question_type = models.CharField(max_length=10, default='likert', choices=[("likert", "likert"), ("fc", 'forced-choice')])
+    display_options = JSONField(blank=True)
+    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} question with '{}' items".format(self.question_type, self.item)
+
+
+
+class Inventory(models.Model):
+    """
+    Тест ничего не знает о шкалах и о компоновке вопросов.
+    Он знает только том, какие вопросы в него включены.
+    Тест содержит логику представления инструмента - инструкцию, сортировку и т.д. 
+    """
+    title = models.CharField(max_length=40)
+    questions = models.ManyToManyField(Question)
+    description = models.CharField(max_length=500)
+    details = models.CharField(max_length=500)
+    instruction = models.CharField(max_length=500)
+    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 
@@ -64,12 +95,27 @@ class Response(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
     value = models.FloatField() 
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+
+class Sample(models.Model):
+    title = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 
 
 class Norm(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
-    group = models.CharField(max_length=50, default="ALL")
+    sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
+    value = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 
 
@@ -83,5 +129,7 @@ class Result(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
     value = models.FloatField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 

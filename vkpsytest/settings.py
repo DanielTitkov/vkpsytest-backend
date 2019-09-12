@@ -16,7 +16,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'psytests',
+    "rest_framework",
+
+    'inventories',
 ]
 
 MIDDLEWARE = [
