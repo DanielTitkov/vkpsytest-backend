@@ -11,6 +11,7 @@ djangorestframework = "*"
 django-configurations = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"
