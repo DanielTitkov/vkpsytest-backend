@@ -28,12 +28,12 @@ class ScaleSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ("id", "item", "question_type")
+        fields = ("id", "item", "question_type", "display_options")
         depth = 1
 
 
 class InventorySerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True)
+    questions = QuestionSerializer(many=True, required=False)
 
     class Meta:
         model = Inventory

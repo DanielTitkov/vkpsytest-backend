@@ -1,6 +1,7 @@
-# django migrations
-*/migrations/
+# Migrations
+*/migrations/*
 !*/migrations/__init__.py
+!__init__.py
 
 ### Django ###
 *.log

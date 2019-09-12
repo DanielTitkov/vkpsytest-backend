@@ -74,10 +74,10 @@ class Inventory(models.Model):
     Тест содержит логику представления инструмента - инструкцию, сортировку и т.д. 
     """
     title = models.CharField(max_length=40)
-    questions = models.ManyToManyField(Question)
-    description = models.CharField(max_length=500)
-    details = models.CharField(max_length=500)
-    instruction = models.CharField(max_length=500)
+    questions = models.ManyToManyField(Question, blank=True)
+    description = models.CharField(max_length=500, blank=True)
+    details = models.CharField(max_length=500, blank=True)
+    instruction = models.CharField(max_length=500, blank=True)
     author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
