@@ -1,0 +1,4 @@
+- model: inventories.MockUser
+  pk: 1
+  fields:
+    name: Stupid
