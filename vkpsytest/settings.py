@@ -23,6 +23,7 @@ class Base(Configuration):
         'corsheaders',
 
         'inventories',
+        'accounts',
     ]
 
     MIDDLEWARE = [
@@ -34,8 +35,11 @@ class Base(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
 
-        'vkpsytest.middleware.simple_middleware' # check vk validation query
+    AUTHENTICATION_BACKENDS = [
+        'accounts.backends.VkBackend',
+        'django.contrib.auth.backends.ModelBackend',
     ]
 
     ROOT_URLCONF = 'vkpsytest.urls'
@@ -86,7 +90,12 @@ class Base(Configuration):
 
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.AllowAny',
+            'rest_framework.permissions.IsAuthenticated',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'accounts.backends.VkBackendREST',
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
         ]
     }
 
@@ -122,3 +131,14 @@ class Prod(Base):
     DEBUG = False
 
     TIME_ZONE = 'America/New_York'
+
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'accounts.backends.VkBackendREST',
+            # 'rest_framework.authentication.BasicAuthentication',
+            # 'rest_framework.authentication.SessionAuthentication',
+        ]
+    }
