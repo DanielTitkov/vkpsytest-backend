@@ -26,7 +26,7 @@ class VkBackend:
                 user.is_staff = True
                 user.is_superuser = True
                 user.save()
-            return user, None
+            return user
         return None
 
 
