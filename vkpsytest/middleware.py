@@ -15,7 +15,7 @@ def simple_middleware(get_response):
             vk_subset = OrderedDict(sorted(x for x in query.items() if x[0][:3] == "vk_"))
             hash_code = b64encode(HMAC(secret.encode(), urlencode(vk_subset, doseq=True).encode(), sha256).digest())
             decoded_hash_code = hash_code.decode('utf-8')[:-1].replace('+', '-').replace('/', '_')
-            return query["sign"] == decoded_hash_code
+            return query.get("sign") == decoded_hash_code
 
         url = request.get_full_path()
         client_secret = settings.VK_SECRET_KEY  # Защищённый ключ из настроек вашего приложения
