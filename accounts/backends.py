@@ -1,3 +1,6 @@
+import os
+import random
+import string
 from base64 import b64encode
 from collections import OrderedDict
 from hashlib import sha256
@@ -11,9 +14,7 @@ from django.contrib.auth.models import User
 
 class VkBackend:
     def authenticate(self, request, *args, **kwargs):
-
-        url = request.get_full_path()
-        query_params = dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
+        query_params = self.parse_vk_signature(request.get_full_path())
         signature_valid = self.validate_vk_signature(query=query_params, secret=settings.VK_SECRET_KEY)
         username = query_params.get("vk_user_id")
 
@@ -21,8 +22,10 @@ class VkBackend:
             try:
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
-                # Create a new user. There's no need to set a password
+                password = self.create_password(settings.DEFAULT_USER_PASSWORD_LENGTH)
+                # maybe send password to user later
                 user = User(username=username)
+                user.set_password(password)
                 user.save()
             return user
         return None
@@ -36,6 +39,11 @@ class VkBackend:
 
 
     @staticmethod
+    def parse_vk_signature(url):
+        return dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
+
+
+    @staticmethod
     def validate_vk_signature(query, secret):
         vk_subset = OrderedDict(sorted(x for x in query.items() if x[0][:3] == "vk_"))
         hash_code = b64encode(
@@ -46,23 +54,18 @@ class VkBackend:
         return query.get("sign") == decoded_hash_code
 
 
+    @staticmethod
+    def create_password(length=16):
+        chars = string.ascii_letters + string.digits + '!@#$%^&*'
+        random.seed = (os.urandom(1024))
+        return ''.join(random.choice(chars) for i in range(length))
+
+
 
 class VkBackendREST(VkBackend):
     def authenticate(self, request, *args, **kwargs):
-
-        url = request.get_full_path()
-        query_params = dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
-        signature_valid = self.validate_vk_signature(query=query_params, secret=settings.VK_SECRET_KEY)
-        username = query_params.get("vk_user_id")
-
-        if signature_valid:
-            try:
-                user = User.objects.get(username=username)
-            except User.DoesNotExist:
-                user = User(username=username)
-                user.save()
-            return user, None
-        return None
+        user = super().authenticate(request, *args, **kwargs)
+        return user, None if user else None
 
 
     def authenticate_header(self, *args, **kwargs):

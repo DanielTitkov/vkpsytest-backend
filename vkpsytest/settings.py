@@ -116,6 +116,8 @@ class Base(Configuration):
 
     STATIC_URL = '/static/'
 
+    DEFAULT_USER_PASSWORD_LENGTH = 16
+
 
 
 class Dev(Base):
