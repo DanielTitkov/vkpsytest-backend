@@ -8,3 +8,6 @@
 *.pot
 *.pyc
 __pycache__/
+
+### ENV
+.env

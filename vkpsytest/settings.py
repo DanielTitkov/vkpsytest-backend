@@ -1,103 +1,124 @@
 import os
+from configurations import Configuration, values
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+class Base(Configuration):
 
-SECRET_KEY = 'youneverguess'
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
+    SECRET_KEY = values.Value("youneverguess")
 
-ALLOWED_HOSTS = []
+    VK_SECRET_KEY = values.Value("vkkey")
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    ALLOWED_HOSTS = []
 
-    "rest_framework",
-    'corsheaders',
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
 
-    'inventories',
-]
+        "rest_framework",
+        'corsheaders',
 
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', # cors
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'vkpsytest.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'vkpsytest.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vkpsytest',
-        'USER' : 'vkpsytest',
-        'PASSWORD' : 'vkpsytest',
-        'HOST' : 'localhost',
-        'PORT' : '5432',
-    }
-}
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'inventories',
     ]
-}
 
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:10888'
-# ]
+    MIDDLEWARE = [
+        'corsheaders.middleware.CorsMiddleware', # cors
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-LANGUAGE_CODE = 'en-us'
+        'vkpsytest.middleware.simple_middleware' # check vk validation query
+    ]
 
-TIME_ZONE = 'UTC'
+    ROOT_URLCONF = 'vkpsytest.urls'
 
-USE_I18N = True
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
 
-USE_L10N = True
+    WSGI_APPLICATION = 'vkpsytest.wsgi.application'
 
-USE_TZ = True
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'vkpsytest',
+            'USER' : 'vkpsytest',
+            'PASSWORD' : 'vkpsytest',
+            'HOST' : 'localhost',
+            'PORT' : '5432',
+        }
+    }
 
-STATIC_URL = '/static/'
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.AllowAny',
+        ]
+    }
+
+    CORS_ORIGIN_ALLOW_ALL = True
+    # CORS_ORIGIN_WHITELIST = [
+    #     'http://localhost:10888'
+    # ]
+
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = 'UTC'
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = True
+
+    STATIC_URL = '/static/'
+
+
+
+class Dev(Base):
+
+    DEBUG = True
+
+    TEMPLATE_DEBUG = DEBUG
+
+
+
+class Prod(Base):
+
+    DEBUG = False
+
+    TIME_ZONE = 'America/New_York'

@@ -12,6 +12,7 @@ django-configurations = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
 pyyaml = "*"
+django-dotenv = "*"
 
 [requires]
 python_version = "3.7"
