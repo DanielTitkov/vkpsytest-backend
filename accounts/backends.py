@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 
 class VkBackend:
-    def authenticate(self, request, username=None, password=None, *args, **kwargs):
+    def authenticate(self, request, *args, **kwargs):
 
         url = request.get_full_path()
         query_params = dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
@@ -23,8 +23,6 @@ class VkBackend:
             except User.DoesNotExist:
                 # Create a new user. There's no need to set a password
                 user = User(username=username)
-                user.is_staff = True
-                user.is_superuser = True
                 user.save()
             return user
         return None
@@ -50,7 +48,7 @@ class VkBackend:
 
 
 class VkBackendREST(VkBackend):
-    def authenticate(self, request, username=None, password=None, *args, **kwargs):
+    def authenticate(self, request, *args, **kwargs):
 
         url = request.get_full_path()
         query_params = dict(parse_qsl(urlparse(url).query, keep_blank_values=True))
@@ -61,10 +59,7 @@ class VkBackendREST(VkBackend):
             try:
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
-                # Create a new user. There's no need to set a password
                 user = User(username=username)
-                user.is_staff = True
-                user.is_superuser = True
                 user.save()
             return user, None
         return None
