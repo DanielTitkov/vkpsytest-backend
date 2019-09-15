@@ -4,7 +4,7 @@ from .views import (
     ScaleView, InventoryView,
     ItemView, QuestionView,
     ResponseView, NormView,
-    SampleView, MockUser
+    SampleView
 )
 
 router = routers.DefaultRouter()
@@ -15,7 +15,6 @@ router.register("questions", QuestionView)
 router.register("responses", ResponseView)
 router.register("norms", NormView)
 router.register("samples", SampleView)
-router.register("mockusers", MockUser)
 
 
 urlpatterns = [

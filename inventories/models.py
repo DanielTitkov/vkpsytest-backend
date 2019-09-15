@@ -1,19 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
-
-
-class MockUser(models.Model):
-    """
-    Fake user model to test psytest relations. 
-    Delete later. 
-    """
-    name = models.CharField(max_length=20)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-    
+from django.contrib.auth.models import User
+ 
 
 
 class Item(models.Model):
@@ -21,7 +9,7 @@ class Item(models.Model):
     Пункт - это структурная единица шкалы. Он содержит какой-то стимул. 
     """
     сontent = models.CharField(max_length=500)
-    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -40,7 +28,7 @@ class Scale(models.Model):
     description = models.CharField(max_length=500)
     method = models.CharField(max_length=10, choices=[("sum", "sum"), ("avg", "average")], default="avg")
     items = models.ManyToManyField(Item, through='Question')
-    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -58,7 +46,7 @@ class Question(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     question_type = models.CharField(max_length=10, default='likert', choices=[("likert", "likert"), ("fc", 'forced-choice')])
     display_options = JSONField(blank=True)
-    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -78,7 +66,7 @@ class Inventory(models.Model):
     description = models.CharField(max_length=500, blank=True)
     details = models.CharField(max_length=500, blank=True)
     instruction = models.CharField(max_length=500, blank=True)
-    author = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -93,7 +81,10 @@ class Response(models.Model):
     А также дополнительные данные - типа когда это произошло и в какой тесте. 
     """
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     value = models.FloatField() 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -127,7 +118,8 @@ class Result(models.Model):
     Или не пользователя и теста а пользователя и шкалу? Да, так логичнее, пожалуй. 
     """
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
-    user = models.ForeignKey(MockUser, on_delete=models.CASCADE) # mock user used
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     value = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

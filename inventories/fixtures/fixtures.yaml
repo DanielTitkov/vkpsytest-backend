@@ -1,15 +1,11 @@
-- model: inventories.mockuser
+- model: auth.user
   pk: 1
   fields:
-    name: Focker
-    created: 2019-09-12 18:07:59.981752+00:00
-    updated: 2019-09-12 18:07:59.981773+00:00
-- model: inventories.mockuser
+    username: Focker
+- model: auth.user
   pk: 2
   fields:
-    name: Boris
-    created: 2019-09-12 18:24:12.455466+00:00
-    updated: 2019-09-12 18:24:12.455501+00:00
+    username: Boris
 - model: inventories.item
   pk: 1
   fields:

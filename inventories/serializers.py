@@ -1,13 +1,5 @@
 from rest_framework import serializers
-from .models import MockUser, Item, Scale, Inventory, Question, Response, Norm, Sample
-
-
-
-class MockUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MockUser
-        fields = ("__all__")
-        depth = 1
+from .models import Item, Scale, Inventory, Question, Response, Norm, Sample
 
 
 

@@ -93,9 +93,9 @@ class Base(Configuration):
             'rest_framework.permissions.IsAuthenticated',
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': [
-            'accounts.backends.VkBackendREST',
             'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.SessionAuthentication',
+            'accounts.backends.VkBackendREST',
         ]
     }
 

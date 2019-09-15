@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import MockUser, Item, Scale, Inventory, Question, Response, Norm, Sample
+from .models import Item, Scale, Inventory, Question, Response, Norm, Sample
 from .serializers import (
     ScaleSerializer, InventorySerializer, 
     ItemSerializer, QuestionSerializer, 
     ResponseSerializer, NormSerializer, 
-    SampleSerializer, MockUserSerializer
+    SampleSerializer
 )
 
 
@@ -42,8 +42,3 @@ class NormView(viewsets.ModelViewSet):
 class SampleView(viewsets.ModelViewSet):
     queryset = Sample.objects.all()
     serializer_class = SampleSerializer
-
-
-class MockUser(viewsets.ModelViewSet):
-    queryset = MockUser.objects.all()
-    serializer_class = MockUserSerializer
