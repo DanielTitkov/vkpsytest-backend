@@ -37,7 +37,7 @@ class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Response
         fields = ("__all__")
-        depth = 1
+        depth = 0
 
 
 class NormSerializer(serializers.ModelSerializer):

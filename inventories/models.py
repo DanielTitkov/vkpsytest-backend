@@ -25,7 +25,7 @@ class Scale(models.Model):
     Соотносится с какой-то нормой и на выходе дает одно число на пользователя. 
     """
     title = models.CharField(max_length=40)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, blank=True)
     method = models.CharField(max_length=10, choices=[("sum", "sum"), ("avg", "average")], default="avg")
     items = models.ManyToManyField(Item, through='Question')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -82,29 +82,33 @@ class Response(models.Model):
     """
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     value = models.FloatField() 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    # limit choices
+
 
 
 class Sample(models.Model):
     title = models.CharField(max_length=30)
+    description = models.CharField(max_length=200, blank=True)
+    users = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return "{}: {}".format(self.title, self.description)
 
 
 
 class Norm(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
-    value = models.FloatField()
+    value = models.FloatField(default=0)
+    valid = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -121,7 +125,9 @@ class Result(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
     value = models.FloatField()
+    raw = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    # limit choices
 
