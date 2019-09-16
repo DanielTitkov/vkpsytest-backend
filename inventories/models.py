@@ -90,6 +90,9 @@ class Response(models.Model):
 
     # limit choices
 
+    def __str__(self): 
+        return "Response to '{}' in '{}' by '{}'".format(self.item, self.inventory, self.user)
+
 
 
 class Sample(models.Model):
@@ -116,10 +119,8 @@ class Norm(models.Model):
 
 class Result(models.Model):
     """
-    Результат связывает пользователя и тест. Он содержит значения по всем шкалам теста для пользователя.
+    Результат связывает пользователя и шкалу.
     Вычисляется с помощью шкалы и нормы. 
-    Можно использовать тут джейсон? 
-    Или не пользователя и теста а пользователя и шкалу? Да, так логичнее, пожалуй. 
     """
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

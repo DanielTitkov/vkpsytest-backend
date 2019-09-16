@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import Item, Scale, Inventory, Question, Response, Norm, Sample
+from .models import (
+    Item, Scale, Inventory, Question, 
+    Response, Norm, Sample, Result
+)
 
 
 
@@ -34,6 +37,8 @@ class InventorySerializer(serializers.ModelSerializer):
 
 
 class ResponseSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Response
         fields = ("__all__")
@@ -50,4 +55,10 @@ class NormSerializer(serializers.ModelSerializer):
 class SampleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sample
+        fields = ("__all__")
+
+
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Result
         fields = ("__all__")

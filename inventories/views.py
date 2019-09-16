@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Item, Scale, Inventory, Question, Response, Norm, Sample
+from .models import (
+    Item, Scale, Inventory, Question, 
+    Response, Norm, Sample, Result
+)
 from .serializers import (
     ScaleSerializer, InventorySerializer, 
     ItemSerializer, QuestionSerializer, 
     ResponseSerializer, NormSerializer, 
-    SampleSerializer
+    SampleSerializer, ResultSerializer
 )
 
 
@@ -30,8 +33,11 @@ class QuestionView(viewsets.ModelViewSet):
 
 
 class ResponseView(viewsets.ModelViewSet):
-    queryset = Response.objects.all()
     serializer_class = ResponseSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Response.objects.filter(user=user)
 
 
 class NormView(viewsets.ModelViewSet):
@@ -42,3 +48,12 @@ class NormView(viewsets.ModelViewSet):
 class SampleView(viewsets.ModelViewSet):
     queryset = Sample.objects.all()
     serializer_class = SampleSerializer
+
+
+class ResultView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = ResultSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Result.objects.filter(user=user)
+ 
