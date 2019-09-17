@@ -10,6 +10,7 @@ from .serializers import (
     ResponseSerializer, NormSerializer, 
     SampleSerializer, ResultSerializer
 )
+from .mixins import CreateListMixin
 
 
 class ScaleView(viewsets.ModelViewSet):
@@ -32,7 +33,7 @@ class QuestionView(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
 
-class ResponseView(viewsets.ModelViewSet):
+class ResponseView(CreateListMixin, viewsets.ModelViewSet):
     serializer_class = ResponseSerializer
 
     def get_queryset(self):
