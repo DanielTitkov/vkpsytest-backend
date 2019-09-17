@@ -19,8 +19,8 @@ class Base(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
-        "rest_framework",
         'corsheaders',
+        "rest_framework",
 
         'inventories',
         'accounts',
@@ -36,6 +36,8 @@ class Base(Configuration):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
+
+    # CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
     AUTHENTICATION_BACKENDS = [
         'accounts.backends.VkBackend',
@@ -89,9 +91,9 @@ class Base(Configuration):
     ]
 
     REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.IsAuthenticated',
-        ],
+        # 'DEFAULT_PERMISSION_CLASSES': [
+        #     'rest_framework.permissions.IsAuthenticated',
+        # ],
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.SessionAuthentication',
