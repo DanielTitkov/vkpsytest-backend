@@ -4,7 +4,9 @@ from .views import (
     ScaleView, InventoryView,
     ItemView, QuestionView,
     ResponseView, NormView,
-    SampleView, ResultView
+    SampleView, 
+    # ResultView,
+    ResultList
 )
 
 router = routers.DefaultRouter()
@@ -15,9 +17,11 @@ router.register("questions", QuestionView)
 router.register("responses", ResponseView, basename="response") 
 router.register("norms", NormView)
 router.register("samples", SampleView)
-router.register("results", ResultView, basename="result")
+# router.register("results", ResultView, basename="result")
+
 
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('results/', ResultList.as_view())
 ]

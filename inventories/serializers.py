@@ -62,3 +62,7 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
         fields = ("__all__")
+
+
+class ResultRequestSerializer(serializers.Serializer):
+    inventory = serializers.IntegerField()
