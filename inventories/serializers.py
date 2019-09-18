@@ -59,6 +59,8 @@ class SampleSerializer(serializers.ModelSerializer):
 
 
 class ResultSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(source='scale.title', read_only=True)
+
     class Meta:
         model = Result
         fields = ("__all__")
