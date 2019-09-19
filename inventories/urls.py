@@ -11,7 +11,7 @@ from .views import (
 
 router = routers.DefaultRouter()
 router.register("scales", ScaleView)
-router.register("inventories", InventoryView)
+router.register("inventories", InventoryView, basename="inventory")
 router.register("items", ItemView)
 router.register("questions", QuestionView)
 router.register("responses", ResponseView, basename="response") 

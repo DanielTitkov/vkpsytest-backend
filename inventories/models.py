@@ -110,6 +110,7 @@ class Scale(models.Model):
             raw=result_raw,
         )
         result.save()
+
         return result
 
 
@@ -152,10 +153,11 @@ class Inventory(models.Model):
     """
     title = models.CharField(max_length=40)
     questions = models.ManyToManyField(Question, blank=True)
+    user = models.ManyToManyField(User, through='Progress')
     description = models.CharField(max_length=500, blank=True)
     details = models.CharField(max_length=500, blank=True)
     instruction = models.CharField(max_length=500, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="author")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -220,8 +222,8 @@ class Result(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
-    value = models.FloatField()
-    raw = models.FloatField()
+    value = models.FloatField(blank=True)
+    raw = models.FloatField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -230,3 +232,23 @@ class Result(models.Model):
     def __str__(self):
         return "Result of user {} in '{}'".format(self.user, self.inventory)
 
+
+class Progress(models.Model):
+    STATUSES = [
+        ("NS", "Not started"),
+        ("PROGRESS", "In progress"),
+        ("DONE", "Done"),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE)
+    data = JSONField(default=dict, blank=True)
+    status = models.CharField(max_length=10, default="NS", choices=STATUSES)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'inventory',)
+
+
+    def __str__(self):
+        return "Progress of {} in {} with status '{}'".format(self.user, self.inventory, self.status)

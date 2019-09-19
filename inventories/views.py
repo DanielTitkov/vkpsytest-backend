@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import (
     Item, Scale, Inventory, Question, 
-    Response as ItemResponse, Norm, Sample, Result
+    Response as ItemResponse, Norm, Sample, Result, Progress
 )
 from .serializers import (
     ScaleSerializer, InventorySerializer, 
@@ -15,6 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .mixins import CreateListMixin
+# from django.db.models import Q
 
 
 class ScaleView(viewsets.ModelViewSet):
@@ -23,8 +24,18 @@ class ScaleView(viewsets.ModelViewSet):
 
 
 class InventoryView(viewsets.ModelViewSet):
-    queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        progress = self.request.query_params.get("progress")
+        if progress == "all":
+            inventories = Inventory.objects.all()
+        elif progress == "done":
+            inventories = Inventory.objects.filter(progress__user=user)
+        else: 
+            inventories = Inventory.objects.exclude(progress__user=user)
+        return inventories
 
 
 class ItemView(viewsets.ModelViewSet):
@@ -77,5 +88,11 @@ class ResultList(APIView):
                 scales = Scale.objects.filter(question__inventory=inventory).distinct() # get all scales for the test
                 new_results = [s.calculate_result(user=user, inventory=inventory) for s in scales]
                 result_serializer = ResultSerializer(new_results, many=True)
+                progress = Progress(
+                    user=user, 
+                    inventory=Inventory(pk=inventory),
+                    status="DONE",   
+                )
+                progress.save()
                 return Response(result_serializer.data, status=status.HTTP_201_CREATED)
         return Response(request_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
