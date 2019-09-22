@@ -212,7 +212,7 @@ class Sample(models.Model):
 class Norm(models.Model):
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
-    norm_type = models.CharField(max_length=15, default="CTT")
+    norm_type = models.CharField(max_length=15, default="CTT") # add choices!!
     values = JSONField(default=dict)
     valid = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -261,4 +261,4 @@ class Progress(models.Model):
 
 
     def __str__(self):
-        return "Progress of {} in {} with status '{}'".format(self.user, self.inventory, self.status)
+        return "Progress of {} in {}".format(self.user, self.inventory)
