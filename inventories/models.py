@@ -161,8 +161,18 @@ class Inventory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return self.title
+
+    
+    def get_status_for_user(self, user):
+        if user:   
+            progress_set = Progress.objects.filter(user=user, inventory=self.id)
+            if progress_set.exists() and len(progress_set) == 1:
+                progress = progress_set.first()
+                return progress.status.lower()
+        return None
 
 
 

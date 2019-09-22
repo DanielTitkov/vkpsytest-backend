@@ -37,6 +37,11 @@ class InventoryView(viewsets.ModelViewSet):
             inventories = Inventory.objects.exclude(progress__user=user)
         return inventories
 
+    
+    def get_serializer_context(self):
+        user = self.request.user
+        return {'user': user}
+
 
 class ItemView(viewsets.ModelViewSet):
     queryset = Item.objects.all()

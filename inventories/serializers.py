@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Item, Scale, Inventory, Question, 
-    Response, Norm, Sample, Result
+    Response, Norm, Sample, Result, Progress
 )
 
 
@@ -20,6 +20,7 @@ class ScaleSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
@@ -27,13 +28,20 @@ class QuestionSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+
 class InventorySerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many=True, required=False)
+    status = serializers.SerializerMethodField()
 
     class Meta:
         model = Inventory
         fields = ("__all__")
-        # depth = 1
+
+
+    def get_status(self, obj):
+        user = self.context.get("user")  
+        return obj.get_status_for_user(user=user)
+
 
 
 class ResponseSerializer(serializers.ModelSerializer):
@@ -45,11 +53,13 @@ class ResponseSerializer(serializers.ModelSerializer):
         depth = 0
 
 
+
 class NormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Norm
         fields = ("__all__")
         depth = 1
+
 
 
 class SampleSerializer(serializers.ModelSerializer):
@@ -58,12 +68,14 @@ class SampleSerializer(serializers.ModelSerializer):
         fields = ("__all__")
 
 
+
 class ResultSerializer(serializers.ModelSerializer):
     title = serializers.CharField(source='scale.title', read_only=True)
 
     class Meta:
         model = Result
         fields = ("__all__")
+
 
 
 class ResultRequestSerializer(serializers.Serializer):
