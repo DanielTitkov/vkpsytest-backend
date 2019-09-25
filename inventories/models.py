@@ -210,13 +210,20 @@ class Sample(models.Model):
 
 
 class Norm(models.Model):
+    NORM_TYPES = [
+        ("CTT", "Classical Test Theory"),
+    ]
     scale = models.ForeignKey(Scale, on_delete=models.CASCADE)
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
-    norm_type = models.CharField(max_length=15, default="CTT") # add choices!!
+    norm_type = models.CharField(max_length=15, choices=NORM_TYPES, default="CTT") # add choices!!
     values = JSONField(default=dict)
     valid = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('sample', 'scale', 'norm_type',)
+
 
     def __str__(self):
         return "{}-norm for scale `{}` for sample `{}`".format(
@@ -241,6 +248,7 @@ class Result(models.Model):
 
     def __str__(self):
         return "Result of user {} in '{}'".format(self.user, self.inventory)
+
 
 
 class Progress(models.Model):
