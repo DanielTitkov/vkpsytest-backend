@@ -8,13 +8,13 @@ class Item(models.Model):
     """
     Пункт - это структурная единица шкалы. Он содержит какой-то стимул. 
     """
-    сontent = models.CharField(max_length=500)
+    content = models.CharField(max_length=500)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.сontent
+        return self.content
 
 
 
