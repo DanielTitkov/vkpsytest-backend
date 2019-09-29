@@ -129,6 +129,12 @@ class ResultAdmin(admin.ModelAdmin):
 class SampleAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
+        'description',
+        'age',
+        'sex',
+        'city',
+        'country',
+        'timezone',
         'created',
         'updated',
     )
