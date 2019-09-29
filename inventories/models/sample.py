@@ -27,14 +27,16 @@ class Sample(models.Model):
         return self.title
 
 
-    def generate_sample_title(self, spec):
-        title_struct = [str(spec.get(f) or "all") for f in self.sample_fields]
+    @classmethod
+    def generate_sample_title(cls, spec):
+        title_struct = [str(spec.get(f) or "all") for f in cls.sample_fields]
         return "-".join(title_struct)
 
 
-    def generate_sample_description(self, spec):
+    @classmethod
+    def generate_sample_description(cls, spec):
         title_struct = []
-        for field in self.sample_fields:
+        for field in cls.sample_fields:
             title_struct.append("{}:{}".format(
                 field, 
                 spec.get(field) or "all",
@@ -42,31 +44,33 @@ class Sample(models.Model):
         return ";".join(title_struct)
 
 
-    def generate_sample_specs_for_user(self, profile):
+    @classmethod
+    def generate_sample_specs_for_user(cls, profile):
         """
         Generates unique sample specifications based on user profile
         socio-demographic data
         """
         combinations = []
-        for i in range(0, len(self.sample_fields)+1):
-            combinations += itertools.combinations(self.sample_fields, i)
+        for i in range(0, len(cls.sample_fields)+1):
+            combinations += itertools.combinations(cls.sample_fields, i)
         samples = []
         for combination in combinations:
             samples.append({
                 k:(getattr(profile, k, None) if k in combination else None)
-                for k in self.sample_fields
+                for k in cls.sample_fields
             })
         return [dict(p) for p in set(tuple(i.items()) for i in samples)]
 
 
-    def generate_samples_for_user(self, user):
+    @classmethod
+    def generate_samples_for_user(cls, user):
         user.sample_set.clear() # clear old samples; this seems cheaper than process each sample
-        for spec in self.generate_sample_specs_for_user(user.profile):
-            sample = Sample.objects.filter(**spec).first()
+        for spec in cls.generate_sample_specs_for_user(user.profile):
+            sample = cls.objects.filter(**spec).first()
             if not sample: # if sample doesn't exist - create new
-                sample = Sample(
-                    title=self.generate_sample_title(spec),
-                    description=self.generate_sample_description(spec),
+                sample = cls(
+                    title=cls.generate_sample_title(spec),
+                    description=cls.generate_sample_description(spec),
                     **spec
                 )
                 sample.save()
