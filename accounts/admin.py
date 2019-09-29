@@ -6,6 +6,7 @@ class ProfileAdmin(admin.ModelAdmin):
         '__str__',
         'user',
         'age',
+        'age_group',
         'sex',
         'city',
         'country',
@@ -15,7 +16,8 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = (
         'sex',
         'city',
-        'country',      
+        'country',
+        'age_group',   
     )
 
 admin.site.register(Profile, ProfileAdmin)

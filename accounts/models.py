@@ -5,8 +5,21 @@ from inventories.models import Sample
 
 
 class Profile(models.Model):
+    AGE_GROUPS = [
+        ("1", "Less than 18"),
+        ("2", "18-21"),
+        ("3", "22-25"),
+        ("4", "26-29"),
+        ("5", "30-34"),
+        ("6", "35-39"),
+        ("7", "40-49"),
+        ("8", "50-59"),
+        ("9", "60-70"),
+        ("10", "More than 70"),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField(null=True, default=None, blank=True)
+    age_group = models.CharField(max_length=20, null=True, default=None, blank=True, choices=AGE_GROUPS)
     sex = models.CharField(max_length=10, null=True, default=None, blank=True)
     city = models.CharField(max_length=30, null=True, default=None, blank=True)
     country = models.CharField(max_length=30, null=True, default=None, blank=True)
