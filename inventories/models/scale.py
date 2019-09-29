@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from .response import Response
+from .result import Result
+
 
 
 class Scale(models.Model):
