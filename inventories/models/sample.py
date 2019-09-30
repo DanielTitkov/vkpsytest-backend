@@ -3,12 +3,39 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+def generate_age_groups(spec):
+    groups = []
+    first, last = 0, len(spec)-1
+    for i, interval in enumerate(spec):
+        desc = "{}{}{}".format(
+            interval[0] if i is not first else "Less than",
+            " " if i in [first, last] else "-",
+            interval[1] if i is not last else "and more",
+        )
+        groups.append((str(i+1), desc))
+    return groups
+
+
 
 class Sample(models.Model):
+    AGE_GROUPS_SPEC = [
+        (0, 18),   # 1
+        (18, 21),  # 2
+        (22, 25),  # 3
+        (26, 29),  # 4
+        (30, 34),  # 5
+        (35, 39),  # 6
+        (40, 49),  # 7
+        (50, 59),  # 8
+        (60, 70),  # 9
+        (70, 200), # 10
+    ]
+    AGE_GROUPS = generate_age_groups(AGE_GROUPS_SPEC)
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=200, blank=True, default="")
     users = models.ManyToManyField(User)
     age = models.IntegerField(null=True, default=None, blank=True)
+    age_group = models.CharField(max_length=20, null=True, default=None, blank=True, choices=AGE_GROUPS)
     sex = models.CharField(max_length=10, null=True, default=None, blank=True)
     city = models.CharField(max_length=30, null=True, default=None, blank=True)
     country = models.CharField(max_length=30, null=True, default=None, blank=True)
@@ -16,15 +43,23 @@ class Sample(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    sample_fields = ['sex', 'age', 'city', 'country']
+    sample_fields = ['sex', 'age_group', 'city', 'country']
 
     class Meta:
-        unique_together = ('sex', 'age', 'city', 'country',) # copy paste here... :(
+        unique_together = ('sex', 'age_group', 'city', 'country',) # copy paste here... :(
         app_label = "inventories"
 
 
     def __str__(self):
         return self.title
+
+
+    @classmethod
+    def define_age_group(cls, age):
+        for i, interval in enumerate(cls.AGE_GROUPS_SPEC):
+            if age in range(interval[0], interval[1]+1):
+                return i+1
+        return None
 
 
     @classmethod

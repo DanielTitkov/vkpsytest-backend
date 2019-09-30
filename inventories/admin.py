@@ -130,13 +130,19 @@ class SampleAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
         'description',
-        'age',
+        # 'age',
+        'age_group',
         'sex',
         'city',
         'country',
-        'timezone',
+        # 'timezone',
         'created',
         'updated',
+    )
+    list_filter = (
+        'sex',
+        'country',
+        'age_group',    
     )
     search_fields = (
         "title",
