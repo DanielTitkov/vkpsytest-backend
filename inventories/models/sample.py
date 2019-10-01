@@ -44,6 +44,7 @@ class Sample(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     sample_fields = ['sex', 'age_group', 'city', 'country']
+    sample_fields_fall_through = ['city']
 
     class Meta:
         unique_together = ('sex', 'age_group', 'city', 'country',) # copy paste here... :(
@@ -90,10 +91,11 @@ class Sample(models.Model):
             combinations += itertools.combinations(cls.sample_fields, i)
         samples = []
         for combination in combinations:
-            samples.append({
-                k:(getattr(profile, k, None) if k in combination else None)
-                for k in cls.sample_fields
-            })
+            if combination and not combination[-1] in cls.sample_fields_fall_through:
+                samples.append({
+                    k:(getattr(profile, k, None) if k in combination else None)
+                    for k in cls.sample_fields
+                })
         return [dict(p) for p in set(tuple(i.items()) for i in samples)]
 
 
