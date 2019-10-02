@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from .response import Response
 from .result import Result
+from .inventory import Inventory
 
 
 
@@ -32,7 +33,8 @@ class Scale(models.Model):
     aggregation_method = models.CharField(max_length=10, choices=AGGREGATION_METHODS, default="AVG")
     standart_scale = models.CharField(max_length=10, choices=STANDART_SCALES, default="NONE")
     normalization_method = models.CharField(max_length=10, choices=NORMALIZATION_METHODS, default="NONE")
-    items = models.ManyToManyField('Item', through='Question')
+    # items = models.ManyToManyField('Item', through='Question')
+    # questions = models.ManyToManyField('Question')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -80,7 +82,7 @@ class Scale(models.Model):
     def calculate_result(self, user, inventory):
         # check user consistency? 
         responses = Response.objects.filter(
-            item__scale=self, 
+            question__scale=self, 
             user=user, 
             inventory=inventory
         ) # get all responses for scale items with user and inventory

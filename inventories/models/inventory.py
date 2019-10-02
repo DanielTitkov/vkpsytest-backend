@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from .progress import Progress
+from .question import Question
 
 
 
@@ -12,7 +13,8 @@ class Inventory(models.Model):
     Тест содержит логику представления инструмента - инструкцию, сортировку и т.д. 
     """
     title = models.CharField(max_length=40)
-    questions = models.ManyToManyField('inventories.Question', blank=True) ###
+    # questions = models.ManyToManyField('inventories.Question', blank=True) ###
+    scales = models.ManyToManyField('Scale', blank=True)
     user = models.ManyToManyField(User, through='Progress')
     description = models.CharField(max_length=500, blank=True)
     details = models.CharField(max_length=500, blank=True)
@@ -36,3 +38,12 @@ class Inventory(models.Model):
                 progress = progress_set.first()
                 return progress.status.lower()
         return None
+
+    
+    def get_questions(self):
+        scales = self.scales.all()
+        print(scales)
+        questions = Question.objects.filter(scale__in=scales).all()
+        print(questions)
+        # return
+        return questions
