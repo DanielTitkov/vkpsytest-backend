@@ -84,18 +84,19 @@ class ResultList(APIView):
         user = self.request.user
         request_serializer = ResultRequestSerializer(data=request.data)
         if request_serializer.is_valid(): # check if result is present 
-            inventory = request_serializer.data.get("inventory")
-            present_results = Result.objects.filter(user=user, inventory=inventory)
+            inventory_id = request_serializer.data.get("inventory")
+            present_results = Result.objects.filter(user=user, inventory=inventory_id)
             if present_results.exists(): # if present - return
                 result_serializer = ResultSerializer(present_results, many=True)
                 return Response(result_serializer.data, status=status.HTTP_200_OK)
             else: # if not present - create and return
-                scales = Scale.objects.filter(question__inventory=inventory).distinct() # get all scales for the test
-                new_results = [s.calculate_result(user=user, inventory=inventory) for s in scales]
+                inventory = Inventory.objects.filter(pk=inventory_id).first()
+                scales = inventory.scales.all() # get all scales for the test
+                new_results = [s.calculate_result(user=user, inventory=inventory_id) for s in scales]
                 result_serializer = ResultSerializer(new_results, many=True)
                 progress = Progress(
                     user=user, 
-                    inventory=Inventory(pk=inventory),
+                    inventory=Inventory(pk=inventory_id),
                     status="DONE",   
                 )
                 progress.save()

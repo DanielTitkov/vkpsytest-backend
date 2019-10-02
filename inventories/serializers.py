@@ -28,9 +28,19 @@ class QuestionSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+# class FooSerializer(serializers.ModelSerializer):
+#   my_field = serializers.SerializerMethodField('is_named_bar')
+
+#   def is_named_bar(self, foo):
+#       return foo.name == "bar" 
+
+#   class Meta:
+#     model = Foo
+#     fields = ('id', 'name', 'my_field')
+
 
 class InventorySerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True, required=False)
+    questions = serializers.SerializerMethodField("get_questions")
     status = serializers.SerializerMethodField()
 
     class Meta:
@@ -41,6 +51,12 @@ class InventorySerializer(serializers.ModelSerializer):
     def get_status(self, obj):
         user = self.context.get("user")  
         return obj.get_status_for_user(user=user)
+
+    
+    def get_questions(self, obj):
+        questions = obj.get_questions()
+        serializer = QuestionSerializer(questions, many=True)
+        return serializer.data
 
 
 

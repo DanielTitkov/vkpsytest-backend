@@ -23,4 +23,4 @@ class Response(models.Model):
 
     def __str__(self): 
         return "Response to '{}' in '{}' by '{}'".format(
-            self.item, self.inventory, self.user)
+            self.question, self.inventory, self.user)
