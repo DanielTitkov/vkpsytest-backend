@@ -117,3 +117,7 @@ class Scale(models.Model):
         # probably need to degrade for more general norm here 
         # if norm is not present
         return norm
+
+    
+    def theoretical_norm(self) -> dict:
+        return None

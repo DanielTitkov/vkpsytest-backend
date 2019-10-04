@@ -11,3 +11,6 @@ __pycache__/
 
 ### ENV
 .env
+
+### mypy
+.mypy_cache
