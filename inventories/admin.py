@@ -21,6 +21,7 @@ class ScaleAdmin(admin.ModelAdmin):
         'normalization_method',
         # items - many-to-many - show count later
         'author', # maybe add link to author
+        'theoretical_norm',
         'created',
         'updated',
     )

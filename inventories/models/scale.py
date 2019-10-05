@@ -55,8 +55,8 @@ class Scale(models.Model):
     standardization_methods = {
         "NONE": lambda value: value,
         "STEN": lambda value: value * 2 + 5.5, 
-        "T": lambda valid: value * 10 + 50,
-        "IQ": lambda valid: value * 15 + 100,
+        "T": lambda value: value * 10 + 50,
+        "IQ": lambda value: value * 15 + 100,
     }
 
     class Meta:
@@ -119,5 +119,18 @@ class Scale(models.Model):
         return norm
 
     
+    @property
     def theoretical_norm(self) -> dict:
-        return None
+        print("RUNNING THEORETICAL NORM")
+        norm_type = self.normalization_method
+        if norm_type in ("NONE", "CTT"):
+            questions = self.question_set.all()
+            scale_min, scale_max = 0, 0
+            for question in questions:
+                scale_min += question.display_options.get('min')
+                scale_max += question.display_options.get('max')
+            mean_denominator = 2 if self.aggregation_method == "SUM" else 2 * questions.count()
+            scale_mean = (scale_min + scale_max) / mean_denominator
+    
+            return {"mean": scale_mean, "sd": 0}
+        return {}
