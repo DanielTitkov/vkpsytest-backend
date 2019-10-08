@@ -122,15 +122,14 @@ class Scale(models.Model):
     @property
     def theoretical_norm(self) -> dict:
         print("RUNNING THEORETICAL NORM")
-        norm_type = self.normalization_method
-        if norm_type in ("NONE", "CTT"):
+        if self.normalization_method in ("NONE", "CTT"):
             questions = self.question_set.all()
             scale_min, scale_max = 0, 0
             for question in questions:
-                scale_min += question.display_options.get('min')
-                scale_max += question.display_options.get('max')
+                scale_min += question.display_options.get('min', 0)
+                scale_max += question.display_options.get('max', 0)
             mean_denominator = 2 if self.aggregation_method == "SUM" else 2 * questions.count()
             scale_mean = (scale_min + scale_max) / mean_denominator
-    
-            return {"mean": scale_mean, "sd": 0}
+            scale_sd = 1 # wtf, FIX THIS
+            return {"mean": scale_mean, "sd": scale_sd}
         return {}
