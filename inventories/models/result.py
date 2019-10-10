@@ -19,6 +19,7 @@ class Result(models.Model):
     # limit choices
 
     class Meta:
+        unique_together = ('scale', 'user',) 
         app_label = "inventories"
 
     def __str__(self):

@@ -1,7 +1,15 @@
+from typing import Optional
+import statistics
+
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.contrib.auth.models import User
 
 from .result import Result
+from .scale import Scale
+
+from vkpsytest.utils import timing
+
 
 
 class Norm(models.Model):
@@ -22,19 +30,33 @@ class Norm(models.Model):
 
 
     def __str__(self):
+        print("RECALCULATING")
+        self.recalculate()
         return "{}-norm for scale `{}` for sample `{}`".format(
             self.norm_type, self.scale, self.sample)
 
     
-    def recalculate_norm(self):
-        users = self.sample.users
-        result = Result.objects.filter(user__in=users)
-        print(result)
-        pass
+    @timing
+    def recalculate(self):
+        users = self.sample.users.all()
+        results = Result.objects.filter(
+            user__in=users,
+            scale=self.scale,
+        ).values("raw")
+        print(results)
+        results_raw_scores = [r.get('raw', 0) for r in results]
+        mean = statistics.mean(results_raw_scores)
+        sd = 1 if len(results_raw_scores) < 2 else statistics.stdev(results_raw_scores)
+        print(mean, sd)
 
     
     @classmethod
-    def recalculate_all_norms(cls, user=None, scale=None, result=None):
+    def recalculate_all_norms(
+        cls, 
+        user: Optional[User] = None, 
+        scale: Optional[Scale] = None, 
+        result: Optional[Result] = None
+    ):
         if result:
             user = result.user
             scale = result.scale
@@ -43,5 +65,5 @@ class Norm(models.Model):
         else: # recalculate all
             norms = cls.objects.all()
             for norm in norms:
-                norm.recalculate_norm()
+                norm.recalculate()
         pass

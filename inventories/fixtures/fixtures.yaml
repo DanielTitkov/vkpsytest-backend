@@ -1,73 +1,562 @@
-- model: auth.user
+- model: contenttypes.contenttype
   pk: 1
   fields:
-    username: Focker
-- model: auth.user
+    app_label: admin
+    model: logentry
+- model: contenttypes.contenttype
   pk: 2
   fields:
-    username: Boris
-- model: inventories.item
-  pk: 1
-  fields:
-    "\u0441ontent": Are you fat?
-    author: 1
-    created: 2019-09-12 18:13:18.477423+00:00
-    updated: 2019-09-12 18:13:18.477444+00:00
-- model: inventories.item
-  pk: 2
-  fields:
-    "\u0441ontent": You like you fat?
-    author: 1
-    created: 2019-09-12 18:14:52.481847+00:00
-    updated: 2019-09-12 18:14:52.481867+00:00
-- model: inventories.item
+    app_label: auth
+    model: permission
+- model: contenttypes.contenttype
   pk: 3
   fields:
-    "\u0441ontent": Are you also stupid?
-    author: 1
-    created: 2019-09-12 18:15:23.381009+00:00
-    updated: 2019-09-12 18:15:23.381033+00:00
-- model: inventories.item
+    app_label: auth
+    model: group
+- model: contenttypes.contenttype
   pk: 4
   fields:
-    "\u0441ontent": You like you stupid?
-    author: 1
-    created: 2019-09-12 18:16:41.892440+00:00
-    updated: 2019-09-12 18:16:41.892460+00:00
-- model: inventories.item
+    app_label: auth
+    model: user
+- model: contenttypes.contenttype
   pk: 5
   fields:
-    "\u0441ontent": Do you love beans?
-    author: 2
-    created: 2019-09-12 18:24:45.816620+00:00
-    updated: 2019-09-12 18:24:45.816640+00:00
-- model: inventories.scale
+    app_label: contenttypes
+    model: contenttype
+- model: contenttypes.contenttype
+  pk: 6
+  fields:
+    app_label: sessions
+    model: session
+- model: contenttypes.contenttype
+  pk: 7
+  fields:
+    app_label: inventories
+    model: item
+- model: contenttypes.contenttype
+  pk: 8
+  fields:
+    app_label: inventories
+    model: question
+- model: contenttypes.contenttype
+  pk: 9
+  fields:
+    app_label: inventories
+    model: sample
+- model: contenttypes.contenttype
+  pk: 10
+  fields:
+    app_label: inventories
+    model: scale
+- model: contenttypes.contenttype
+  pk: 11
+  fields:
+    app_label: inventories
+    model: result
+- model: contenttypes.contenttype
+  pk: 12
+  fields:
+    app_label: inventories
+    model: response
+- model: contenttypes.contenttype
+  pk: 13
+  fields:
+    app_label: inventories
+    model: norm
+- model: contenttypes.contenttype
+  pk: 14
+  fields:
+    app_label: inventories
+    model: inventory
+- model: contenttypes.contenttype
+  pk: 15
+  fields:
+    app_label: inventories
+    model: progress
+- model: contenttypes.contenttype
+  pk: 16
+  fields:
+    app_label: accounts
+    model: profile
+- model: sessions.session
+  pk: qnujctykp58chc8h5f6bl8nemvb4t657
+  fields:
+    session_data: NTAwNDQyZjE2Y2ZjNmY2MmQ0MGUxNDViNGM4ZTlhZTkzMjJjYWJhNzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjOTdmMWZhYjYwNzAwMWUwOTMxNDY0Yjc0M2NkNGU4YWViNmYyNWQ2In0=
+    expire_date: 2019-10-24 22:20:41.685970+00:00
+- model: inventories.norm
   pk: 1
   fields:
-    title: Fat Scale
-    description: Scale of how you fat
-    method: sum
-    author: 1
-    created: 2019-09-12 18:13:39.576543+00:00
-    updated: 2019-09-12 18:13:39.576565+00:00
-- model: inventories.scale
+    scale: 2
+    sample: 5
+    norm_type: CTT
+    values:
+      mean: 2
+      sd: 1
+    valid: true
+    created: 2019-10-10 22:31:33.198006+00:00
+    updated: 2019-10-10 22:31:33.198025+00:00
+- model: auth.permission
+  pk: 1
+  fields:
+    name: Can add log entry
+    content_type: 1
+    codename: add_logentry
+- model: auth.permission
   pk: 2
   fields:
-    title: Stupid scale
-    description: Scale of how you stupid
-    method: avg
-    author: 1
-    created: 2019-09-12 18:15:44.146172+00:00
-    updated: 2019-09-12 18:15:44.146192+00:00
-- model: inventories.scale
+    name: Can change log entry
+    content_type: 1
+    codename: change_logentry
+- model: auth.permission
   pk: 3
   fields:
-    title: Love for beans
-    description: Beany beany scale
-    method: sum
-    author: 2
-    created: 2019-09-12 18:25:04.612939+00:00
-    updated: 2019-09-12 18:25:04.612967+00:00
+    name: Can delete log entry
+    content_type: 1
+    codename: delete_logentry
+- model: auth.permission
+  pk: 4
+  fields:
+    name: Can view log entry
+    content_type: 1
+    codename: view_logentry
+- model: auth.permission
+  pk: 5
+  fields:
+    name: Can add permission
+    content_type: 2
+    codename: add_permission
+- model: auth.permission
+  pk: 6
+  fields:
+    name: Can change permission
+    content_type: 2
+    codename: change_permission
+- model: auth.permission
+  pk: 7
+  fields:
+    name: Can delete permission
+    content_type: 2
+    codename: delete_permission
+- model: auth.permission
+  pk: 8
+  fields:
+    name: Can view permission
+    content_type: 2
+    codename: view_permission
+- model: auth.permission
+  pk: 9
+  fields:
+    name: Can add group
+    content_type: 3
+    codename: add_group
+- model: auth.permission
+  pk: 10
+  fields:
+    name: Can change group
+    content_type: 3
+    codename: change_group
+- model: auth.permission
+  pk: 11
+  fields:
+    name: Can delete group
+    content_type: 3
+    codename: delete_group
+- model: auth.permission
+  pk: 12
+  fields:
+    name: Can view group
+    content_type: 3
+    codename: view_group
+- model: auth.permission
+  pk: 13
+  fields:
+    name: Can add user
+    content_type: 4
+    codename: add_user
+- model: auth.permission
+  pk: 14
+  fields:
+    name: Can change user
+    content_type: 4
+    codename: change_user
+- model: auth.permission
+  pk: 15
+  fields:
+    name: Can delete user
+    content_type: 4
+    codename: delete_user
+- model: auth.permission
+  pk: 16
+  fields:
+    name: Can view user
+    content_type: 4
+    codename: view_user
+- model: auth.permission
+  pk: 17
+  fields:
+    name: Can add content type
+    content_type: 5
+    codename: add_contenttype
+- model: auth.permission
+  pk: 18
+  fields:
+    name: Can change content type
+    content_type: 5
+    codename: change_contenttype
+- model: auth.permission
+  pk: 19
+  fields:
+    name: Can delete content type
+    content_type: 5
+    codename: delete_contenttype
+- model: auth.permission
+  pk: 20
+  fields:
+    name: Can view content type
+    content_type: 5
+    codename: view_contenttype
+- model: auth.permission
+  pk: 21
+  fields:
+    name: Can add session
+    content_type: 6
+    codename: add_session
+- model: auth.permission
+  pk: 22
+  fields:
+    name: Can change session
+    content_type: 6
+    codename: change_session
+- model: auth.permission
+  pk: 23
+  fields:
+    name: Can delete session
+    content_type: 6
+    codename: delete_session
+- model: auth.permission
+  pk: 24
+  fields:
+    name: Can view session
+    content_type: 6
+    codename: view_session
+- model: auth.permission
+  pk: 25
+  fields:
+    name: Can add item
+    content_type: 7
+    codename: add_item
+- model: auth.permission
+  pk: 26
+  fields:
+    name: Can change item
+    content_type: 7
+    codename: change_item
+- model: auth.permission
+  pk: 27
+  fields:
+    name: Can delete item
+    content_type: 7
+    codename: delete_item
+- model: auth.permission
+  pk: 28
+  fields:
+    name: Can view item
+    content_type: 7
+    codename: view_item
+- model: auth.permission
+  pk: 29
+  fields:
+    name: Can add question
+    content_type: 8
+    codename: add_question
+- model: auth.permission
+  pk: 30
+  fields:
+    name: Can change question
+    content_type: 8
+    codename: change_question
+- model: auth.permission
+  pk: 31
+  fields:
+    name: Can delete question
+    content_type: 8
+    codename: delete_question
+- model: auth.permission
+  pk: 32
+  fields:
+    name: Can view question
+    content_type: 8
+    codename: view_question
+- model: auth.permission
+  pk: 33
+  fields:
+    name: Can add sample
+    content_type: 9
+    codename: add_sample
+- model: auth.permission
+  pk: 34
+  fields:
+    name: Can change sample
+    content_type: 9
+    codename: change_sample
+- model: auth.permission
+  pk: 35
+  fields:
+    name: Can delete sample
+    content_type: 9
+    codename: delete_sample
+- model: auth.permission
+  pk: 36
+  fields:
+    name: Can view sample
+    content_type: 9
+    codename: view_sample
+- model: auth.permission
+  pk: 37
+  fields:
+    name: Can add scale
+    content_type: 10
+    codename: add_scale
+- model: auth.permission
+  pk: 38
+  fields:
+    name: Can change scale
+    content_type: 10
+    codename: change_scale
+- model: auth.permission
+  pk: 39
+  fields:
+    name: Can delete scale
+    content_type: 10
+    codename: delete_scale
+- model: auth.permission
+  pk: 40
+  fields:
+    name: Can view scale
+    content_type: 10
+    codename: view_scale
+- model: auth.permission
+  pk: 41
+  fields:
+    name: Can add result
+    content_type: 11
+    codename: add_result
+- model: auth.permission
+  pk: 42
+  fields:
+    name: Can change result
+    content_type: 11
+    codename: change_result
+- model: auth.permission
+  pk: 43
+  fields:
+    name: Can delete result
+    content_type: 11
+    codename: delete_result
+- model: auth.permission
+  pk: 44
+  fields:
+    name: Can view result
+    content_type: 11
+    codename: view_result
+- model: auth.permission
+  pk: 45
+  fields:
+    name: Can add response
+    content_type: 12
+    codename: add_response
+- model: auth.permission
+  pk: 46
+  fields:
+    name: Can change response
+    content_type: 12
+    codename: change_response
+- model: auth.permission
+  pk: 47
+  fields:
+    name: Can delete response
+    content_type: 12
+    codename: delete_response
+- model: auth.permission
+  pk: 48
+  fields:
+    name: Can view response
+    content_type: 12
+    codename: view_response
+- model: auth.permission
+  pk: 49
+  fields:
+    name: Can add norm
+    content_type: 13
+    codename: add_norm
+- model: auth.permission
+  pk: 50
+  fields:
+    name: Can change norm
+    content_type: 13
+    codename: change_norm
+- model: auth.permission
+  pk: 51
+  fields:
+    name: Can delete norm
+    content_type: 13
+    codename: delete_norm
+- model: auth.permission
+  pk: 52
+  fields:
+    name: Can view norm
+    content_type: 13
+    codename: view_norm
+- model: auth.permission
+  pk: 53
+  fields:
+    name: Can add inventory
+    content_type: 14
+    codename: add_inventory
+- model: auth.permission
+  pk: 54
+  fields:
+    name: Can change inventory
+    content_type: 14
+    codename: change_inventory
+- model: auth.permission
+  pk: 55
+  fields:
+    name: Can delete inventory
+    content_type: 14
+    codename: delete_inventory
+- model: auth.permission
+  pk: 56
+  fields:
+    name: Can view inventory
+    content_type: 14
+    codename: view_inventory
+- model: auth.permission
+  pk: 57
+  fields:
+    name: Can add progress
+    content_type: 15
+    codename: add_progress
+- model: auth.permission
+  pk: 58
+  fields:
+    name: Can change progress
+    content_type: 15
+    codename: change_progress
+- model: auth.permission
+  pk: 59
+  fields:
+    name: Can delete progress
+    content_type: 15
+    codename: delete_progress
+- model: auth.permission
+  pk: 60
+  fields:
+    name: Can view progress
+    content_type: 15
+    codename: view_progress
+- model: auth.permission
+  pk: 61
+  fields:
+    name: Can add profile
+    content_type: 16
+    codename: add_profile
+- model: auth.permission
+  pk: 62
+  fields:
+    name: Can change profile
+    content_type: 16
+    codename: change_profile
+- model: auth.permission
+  pk: 63
+  fields:
+    name: Can delete profile
+    content_type: 16
+    codename: delete_profile
+- model: auth.permission
+  pk: 64
+  fields:
+    name: Can view profile
+    content_type: 16
+    codename: view_profile
+- model: auth.user
+  pk: 1
+  fields:
+    password: ''
+    last_login: null
+    is_superuser: false
+    username: Focker
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2019-10-10 22:19:27.452619+00:00
+    groups: []
+    user_permissions: []
+- model: auth.user
+  pk: 2
+  fields:
+    password: ''
+    last_login: null
+    is_superuser: false
+    username: Boris
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2019-10-10 22:19:27.456205+00:00
+    groups: []
+    user_permissions: []
+- model: auth.user
+  pk: 3
+  fields:
+    password: pbkdf2_sha256$150000$jamDpg1oEkad$DWY2C+aCciXjsK6i4ndGjzZXYL1g3j8QIAq4fGhuYik=
+    last_login: 2019-10-10 22:20:41.682017+00:00
+    is_superuser: true
+    username: titkovd
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: true
+    is_active: true
+    date_joined: 2019-10-10 22:20:14.952322+00:00
+    groups: []
+    user_permissions: []
+- model: auth.user
+  pk: 4
+  fields:
+    password: pbkdf2_sha256$150000$10sJbaYwKvxA$IdBD1usfTbWs+D4uw7TIDBtFy1Ri4dZrDa17vrCo2KY=
+    last_login: null
+    is_superuser: false
+    username: '7110301'
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2019-10-10 22:24:05.486298+00:00
+    groups: []
+    user_permissions: []
+- model: inventories.progress
+  pk: 1
+  fields:
+    user: 4
+    inventory: 2
+    data: {}
+    status: DONE
+    created: 2019-10-10 22:28:15.347821+00:00
+    updated: 2019-10-10 22:28:15.347842+00:00
+- model: inventories.progress
+  pk: 2
+  fields:
+    user: 4
+    inventory: 1
+    data: {}
+    status: DONE
+    created: 2019-10-10 22:28:28.847178+00:00
+    updated: 2019-10-10 22:28:28.847228+00:00
 - model: inventories.question
   pk: 1
   fields:
@@ -147,12 +636,10 @@
     instruction: How to really stupid
     author: 1
     created: 2019-09-12 18:16:58.637237+00:00
-    updated: 2019-09-12 18:16:58.637258+00:00
-    questions:
+    updated: 2019-10-10 22:20:57.607569+00:00
+    scales:
     - 1
     - 2
-    - 3
-    - 4
 - model: inventories.inventory
   pk: 2
   fields:
@@ -162,6 +649,445 @@
     instruction: Cook beans eat beans
     author: 2
     created: 2019-09-12 18:26:07.641303+00:00
-    updated: 2019-09-12 18:26:07.641324+00:00
-    questions:
-    - 5
+    updated: 2019-10-10 22:28:04.214242+00:00
+    scales:
+    - 3
+- model: inventories.item
+  pk: 1
+  fields:
+    content: Are you fat?
+    author: 1
+    created: 2019-09-12 18:13:18.477423+00:00
+    updated: 2019-09-12 18:13:18.477444+00:00
+- model: inventories.item
+  pk: 2
+  fields:
+    content: You like you fat?
+    author: 1
+    created: 2019-09-12 18:14:52.481847+00:00
+    updated: 2019-09-12 18:14:52.481867+00:00
+- model: inventories.item
+  pk: 3
+  fields:
+    content: Are you also stupid?
+    author: 1
+    created: 2019-09-12 18:15:23.381009+00:00
+    updated: 2019-09-12 18:15:23.381033+00:00
+- model: inventories.item
+  pk: 4
+  fields:
+    content: You like you stupid?
+    author: 1
+    created: 2019-09-12 18:16:41.892440+00:00
+    updated: 2019-09-12 18:16:41.892460+00:00
+- model: inventories.item
+  pk: 5
+  fields:
+    content: Do you love beans?
+    author: 2
+    created: 2019-09-12 18:24:45.816620+00:00
+    updated: 2019-09-12 18:24:45.816640+00:00
+- model: inventories.result
+  pk: 1
+  fields:
+    scale: 3
+    user: 4
+    inventory: 2
+    value: 3.0
+    raw: 3.0
+    created: 2019-10-10 22:28:15.342796+00:00
+    updated: 2019-10-10 22:28:15.342817+00:00
+- model: inventories.result
+  pk: 2
+  fields:
+    scale: 1
+    user: 4
+    inventory: 1
+    value: 2.5
+    raw: 2.5
+    created: 2019-10-10 22:28:28.817669+00:00
+    updated: 2019-10-10 22:28:28.817701+00:00
+- model: inventories.result
+  pk: 3
+  fields:
+    scale: 2
+    user: 4
+    inventory: 1
+    value: 3.5
+    raw: 3.5
+    created: 2019-10-10 22:28:28.843403+00:00
+    updated: 2019-10-10 22:28:28.843446+00:00
+- model: inventories.result
+  pk: 4
+  fields:
+    scale: 2
+    user: 2
+    inventory: 1
+    value: 3.0
+    raw: 3.0
+    created: 2019-10-10 22:33:21.984810+00:00
+    updated: 2019-10-10 22:33:21.984832+00:00
+- model: inventories.result
+  pk: 5
+  fields:
+    scale: 2
+    user: 1
+    inventory: 1
+    value: 3.0
+    raw: 4.0
+    created: 2019-10-10 22:33:42.120783+00:00
+    updated: 2019-10-10 22:33:42.120817+00:00
+- model: inventories.result
+  pk: 6
+  fields:
+    scale: 2
+    user: 3
+    inventory: 1
+    value: 2.0
+    raw: 2.0
+    created: 2019-10-10 22:33:53.942821+00:00
+    updated: 2019-10-10 22:33:53.942850+00:00
+- model: inventories.response
+  pk: 1
+  fields:
+    item: 1
+    user: 4
+    question: 1
+    inventory: 1
+    value: 2.0
+    created: 2019-10-10 22:24:21.913632+00:00
+    updated: 2019-10-10 22:24:21.913653+00:00
+- model: inventories.response
+  pk: 2
+  fields:
+    item: 2
+    user: 4
+    question: 2
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:24:21.920048+00:00
+    updated: 2019-10-10 22:24:21.920068+00:00
+- model: inventories.response
+  pk: 3
+  fields:
+    item: 3
+    user: 4
+    question: 3
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:24:21.922853+00:00
+    updated: 2019-10-10 22:24:21.922873+00:00
+- model: inventories.response
+  pk: 4
+  fields:
+    item: 4
+    user: 4
+    question: 4
+    inventory: 1
+    value: 4.0
+    created: 2019-10-10 22:24:21.925700+00:00
+    updated: 2019-10-10 22:24:21.925719+00:00
+- model: inventories.response
+  pk: 5
+  fields:
+    item: 1
+    user: 4
+    question: 1
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:27:14.085659+00:00
+    updated: 2019-10-10 22:27:14.085678+00:00
+- model: inventories.response
+  pk: 6
+  fields:
+    item: 2
+    user: 4
+    question: 2
+    inventory: 1
+    value: 2.0
+    created: 2019-10-10 22:27:14.090149+00:00
+    updated: 2019-10-10 22:27:14.090202+00:00
+- model: inventories.response
+  pk: 7
+  fields:
+    item: 3
+    user: 4
+    question: 3
+    inventory: 1
+    value: 4.0
+    created: 2019-10-10 22:27:14.095446+00:00
+    updated: 2019-10-10 22:27:14.095483+00:00
+- model: inventories.response
+  pk: 8
+  fields:
+    item: 4
+    user: 4
+    question: 4
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:27:14.099054+00:00
+    updated: 2019-10-10 22:27:14.099081+00:00
+- model: inventories.response
+  pk: 9
+  fields:
+    item: 5
+    user: 4
+    question: 5
+    inventory: 2
+    value: 3.0
+    created: 2019-10-10 22:28:15.231985+00:00
+    updated: 2019-10-10 22:28:15.232006+00:00
+- model: inventories.response
+  pk: 10
+  fields:
+    item: 1
+    user: 4
+    question: 1
+    inventory: 1
+    value: 2.0
+    created: 2019-10-10 22:28:28.736879+00:00
+    updated: 2019-10-10 22:28:28.736900+00:00
+- model: inventories.response
+  pk: 11
+  fields:
+    item: 2
+    user: 4
+    question: 2
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:28:28.740709+00:00
+    updated: 2019-10-10 22:28:28.740729+00:00
+- model: inventories.response
+  pk: 12
+  fields:
+    item: 3
+    user: 4
+    question: 3
+    inventory: 1
+    value: 3.0
+    created: 2019-10-10 22:28:28.743698+00:00
+    updated: 2019-10-10 22:28:28.743718+00:00
+- model: inventories.response
+  pk: 13
+  fields:
+    item: 4
+    user: 4
+    question: 4
+    inventory: 1
+    value: 4.0
+    created: 2019-10-10 22:28:28.746581+00:00
+    updated: 2019-10-10 22:28:28.746599+00:00
+- model: inventories.scale
+  pk: 1
+  fields:
+    title: Fat Scale
+    description: Scale of how you fat
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 1
+    created: 2019-09-12 18:13:39.576543+00:00
+    updated: 2019-09-12 18:13:39.576565+00:00
+- model: inventories.scale
+  pk: 2
+  fields:
+    title: Stupid scale
+    description: Scale of how you stupid
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 1
+    created: 2019-09-12 18:15:44.146172+00:00
+    updated: 2019-09-12 18:15:44.146192+00:00
+- model: inventories.scale
+  pk: 3
+  fields:
+    title: Love for beans
+    description: Beany beany scale
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 2
+    created: 2019-09-12 18:25:04.612939+00:00
+    updated: 2019-09-12 18:25:04.612967+00:00
+- model: inventories.sample
+  pk: 1
+  fields:
+    title: "2-all-all-\u0420\u043E\u0441\u0441\u0438\u044F"
+    description: "sex:2;age_group:all;city:all;country:\u0420\u043E\u0441\u0441\u0438\
+      \u044F"
+    age: null
+    age_group: null
+    sex: '2'
+    city: null
+    country: "\u0420\u043E\u0441\u0441\u0438\u044F"
+    timezone: null
+    created: 2019-10-10 22:25:40.735586+00:00
+    updated: 2019-10-10 22:25:40.735616+00:00
+    users:
+    - 4
+- model: inventories.sample
+  pk: 2
+  fields:
+    title: "2-all-\u041C\u043E\u0441\u043A\u0432\u0430-\u0420\u043E\u0441\u0441\u0438\
+      \u044F"
+    description: "sex:2;age_group:all;city:\u041C\u043E\u0441\u043A\u0432\u0430;country:\u0420\
+      \u043E\u0441\u0441\u0438\u044F"
+    age: null
+    age_group: null
+    sex: '2'
+    city: "\u041C\u043E\u0441\u043A\u0432\u0430"
+    country: "\u0420\u043E\u0441\u0441\u0438\u044F"
+    timezone: null
+    created: 2019-10-10 22:25:40.746686+00:00
+    updated: 2019-10-10 22:25:40.746707+00:00
+    users:
+    - 4
+- model: inventories.sample
+  pk: 3
+  fields:
+    title: "all-all-\u041C\u043E\u0441\u043A\u0432\u0430-\u0420\u043E\u0441\u0441\u0438\
+      \u044F"
+    description: "sex:all;age_group:all;city:\u041C\u043E\u0441\u043A\u0432\u0430\
+      ;country:\u0420\u043E\u0441\u0441\u0438\u044F"
+    age: null
+    age_group: null
+    sex: null
+    city: "\u041C\u043E\u0441\u043A\u0432\u0430"
+    country: "\u0420\u043E\u0441\u0441\u0438\u044F"
+    timezone: null
+    created: 2019-10-10 22:25:40.756424+00:00
+    updated: 2019-10-10 22:25:40.756457+00:00
+    users:
+    - 4
+- model: inventories.sample
+  pk: 4
+  fields:
+    title: "all-all-all-\u0420\u043E\u0441\u0441\u0438\u044F"
+    description: "sex:all;age_group:all;city:all;country:\u0420\u043E\u0441\u0441\u0438\
+      \u044F"
+    age: null
+    age_group: null
+    sex: null
+    city: null
+    country: "\u0420\u043E\u0441\u0441\u0438\u044F"
+    timezone: null
+    created: 2019-10-10 22:25:40.766711+00:00
+    updated: 2019-10-10 22:25:40.766744+00:00
+    users:
+    - 4
+- model: inventories.sample
+  pk: 5
+  fields:
+    title: all-all-all-all
+    description: sex:all;age_group:all;city:all;country:all
+    age: null
+    age_group: null
+    sex: null
+    city: null
+    country: null
+    timezone: null
+    created: 2019-10-10 22:25:40.779366+00:00
+    updated: 2019-10-10 22:35:15.924730+00:00
+    users:
+    - 1
+    - 2
+    - 3
+    - 4
+- model: inventories.sample
+  pk: 6
+  fields:
+    title: 2-all-all-all
+    description: sex:2;age_group:all;city:all;country:all
+    age: null
+    age_group: null
+    sex: '2'
+    city: null
+    country: null
+    timezone: null
+    created: 2019-10-10 22:25:40.791350+00:00
+    updated: 2019-10-10 22:25:40.791413+00:00
+    users:
+    - 4
+- model: accounts.profile
+  pk: 1
+  fields:
+    user: 4
+    age: null
+    age_group: null
+    sex: '2'
+    city: "\u041C\u043E\u0441\u043A\u0432\u0430"
+    country: "\u0420\u043E\u0441\u0441\u0438\u044F"
+    timezone: '3'
+    created: 2019-10-10 22:25:40.716170+00:00
+    updated: 2019-10-10 22:25:40.716199+00:00
+- model: admin.logentry
+  pk: 1
+  fields:
+    action_time: 2019-10-10 22:20:57.612555+00:00
+    user: 3
+    content_type: 14
+    object_id: '1'
+    object_repr: StupidTest
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["scales"]}}]'
+- model: admin.logentry
+  pk: 2
+  fields:
+    action_time: 2019-10-10 22:28:04.218877+00:00
+    user: 3
+    content_type: 14
+    object_id: '2'
+    object_repr: Simple Second
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["scales"]}}]'
+- model: admin.logentry
+  pk: 3
+  fields:
+    action_time: 2019-10-10 22:31:33.207878+00:00
+    user: 3
+    content_type: 13
+    object_id: '1'
+    object_repr: CTT-norm for scale `Stupid scale` for sample `all-all-all-all`
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 4
+  fields:
+    action_time: 2019-10-10 22:33:21.985645+00:00
+    user: 3
+    content_type: 11
+    object_id: '4'
+    object_repr: Result of user Boris in 'StupidTest'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 5
+  fields:
+    action_time: 2019-10-10 22:33:42.122017+00:00
+    user: 3
+    content_type: 11
+    object_id: '5'
+    object_repr: Result of user Focker in 'StupidTest'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 6
+  fields:
+    action_time: 2019-10-10 22:33:53.943946+00:00
+    user: 3
+    content_type: 11
+    object_id: '6'
+    object_repr: Result of user titkovd in 'StupidTest'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 7
+  fields:
+    action_time: 2019-10-10 22:35:15.929764+00:00
+    user: 3
+    content_type: 9
+    object_id: '5'
+    object_repr: all-all-all-all
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["users"]}}]'

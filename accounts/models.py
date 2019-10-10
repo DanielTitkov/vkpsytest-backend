@@ -35,7 +35,7 @@ class Profile(models.Model):
 
     def get_optimal_norm(self, scale: Scale) -> Norm:
         norm = Norm.objects.filter(
-            sample__users=self,
+            sample__users=self.user,
             scale=scale,
             valid=True,
             norm_type=scale.normalization_method
@@ -46,7 +46,14 @@ class Profile(models.Model):
 
 
     def update_norms(self, scale: Scale):
-        pass
+        norms = Norm.objects.filter(
+            sample__users=self.user,
+            scale=scale,
+            valid=True,
+            norm_type=scale.normalization_method
+        ).all()
+        for norm in norms:
+            norm.recalculate()
 
 
     @staticmethod
