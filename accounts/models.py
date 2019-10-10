@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from inventories.models import Sample
+from inventories.models import Norm
+from inventories.models import Scale
 
 
 class Profile(models.Model):
@@ -26,11 +28,25 @@ class Profile(models.Model):
         On profile create or update user samples are recalculated.
         Maybe add extensive logging later.
         """
-        print("Before profile save".upper())
         self.age_group = Sample.define_age_group(self.age) 
         super().save(*args, **kwargs)  # Call the "real" save() method.
         Sample.generate_samples_for_user(self.user) # this is long Sample method
-        print("After profile save".upper())
+
+
+    def get_optimal_norm(self, scale: Scale) -> Norm:
+        norm = Norm.objects.filter(
+            sample__users=self,
+            scale=scale,
+            valid=True,
+            norm_type=scale.normalization_method
+        ).first()
+        # probably need to degrade for more general norm here 
+        # if norm is not present - create new norm? 
+        return norm
+
+
+    def update_norms(self, scale: Scale):
+        pass
 
 
     @staticmethod

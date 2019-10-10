@@ -90,8 +90,10 @@ class Scale(models.Model):
         result_raw = self.aggregate([r.value for r in responses])
         result_value = result_raw
 
+        norm = user.profile.get_optimal_norm(scale=self) # select the most exact user norm
+        user.profile.update_norms(scale=self) # recalculate user norms (maybe this should be async)
+
         if self.normalization_method != "NONE":  # standardization makes no sense if normalization is not applied
-            norm = self.get_relevant_norm(user) 
             if norm: 
                 result_value = self.standardize(self.normalize(result_raw, norm))
      
@@ -103,7 +105,7 @@ class Scale(models.Model):
             raw=result_raw,
         )
         result.save()
-
+        
         return result
 
 
