@@ -30,8 +30,6 @@ class Norm(models.Model):
 
 
     def __str__(self):
-        print("RECALCULATING")
-        self.recalculate()
         return "{}-norm for scale `{}` for sample `{}`".format(
             self.norm_type, self.scale, self.sample)
 
@@ -43,11 +41,11 @@ class Norm(models.Model):
             user__in=users,
             scale=self.scale,
         ).values("raw")
-        print(results)
         results_raw_scores = [r.get('raw', 0) for r in results]
         mean = statistics.mean(results_raw_scores)
         sd = 1 if len(results_raw_scores) < 2 else statistics.stdev(results_raw_scores)
-        print(mean, sd)
+        self.values = {"mean": round(mean, 3), "sd": round(sd, 3)}
+        self.save()
 
     
     @classmethod
