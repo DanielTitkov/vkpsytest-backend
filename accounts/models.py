@@ -5,6 +5,8 @@ from inventories.models import Sample
 from inventories.models import Norm
 from inventories.models import Scale
 
+from vkpsytest.utils import timing
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -19,6 +21,11 @@ class Profile(models.Model):
 
 
     def __str__(self):
+
+        print("GETTING NORM")
+        scale = Scale.objects.filter(title="Stupid scale").first()
+        self.get_optimal_norm(scale)
+
         return "{} profile".format(self.user)
 
 
@@ -33,6 +40,7 @@ class Profile(models.Model):
         Sample.generate_samples_for_user(self.user) # this is long Sample method
 
 
+    @timing
     def get_optimal_norm(self, scale: Scale) -> Norm:
         norm = Norm.objects.filter(
             sample__users=self.user,
@@ -42,6 +50,9 @@ class Profile(models.Model):
         ).first()
         # probably need to degrade for more general norm here 
         # if norm is not present - create new norm? 
+        print(self.user)
+        print(scale, scale.normalization_method)
+        print(norm)
         return norm
 
 

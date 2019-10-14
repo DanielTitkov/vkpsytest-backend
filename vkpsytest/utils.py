@@ -11,8 +11,8 @@ def timing(f):
         te = time()
         logging.warning('called func: {} args:[{}, {}] took: {:2.4f} ms'.format(
             f.__name__,
-            args, 
-            kwargs,
+            "args" or args, 
+            "kwargs" or kwargs,
             (te-ts)*1000,
         ))
         return result
