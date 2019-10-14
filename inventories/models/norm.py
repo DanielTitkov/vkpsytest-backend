@@ -4,6 +4,7 @@ import statistics
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from .result import Result
 from .scale import Scale
@@ -42,8 +43,10 @@ class Norm(models.Model):
             scale=self.scale,
         ).values("raw")
         results_raw_scores = [r.get('raw', 0) for r in results]
+        if len(results_raw_scores) < settings.MIN_SAMPLE:
+            return
         mean = statistics.mean(results_raw_scores)
-        sd = 1 if len(results_raw_scores) < 2 else statistics.stdev(results_raw_scores)
+        sd = statistics.stdev(results_raw_scores)
         self.values = {"mean": round(mean, 3), "sd": round(sd, 3)}
         self.save()
 

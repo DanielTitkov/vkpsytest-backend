@@ -120,6 +120,9 @@ class Base(Configuration):
 
     DEFAULT_USER_PASSWORD_LENGTH = 16
 
+    # business settings
+    MIN_SAMPLE = 10
+
 
 
 class Dev(Base):
