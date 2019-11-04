@@ -49,6 +49,7 @@ class Profile(models.Model):
             norm_type=scale.normalization_method
         ).first()
         # probably need to degrade for more general norm here 
+        # if norm is not present need to degrade for more general norm here 
         # if norm is not present - create new norm? 
         print(self.user)
         print(scale, scale.normalization_method)

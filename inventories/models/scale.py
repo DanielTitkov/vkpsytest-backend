@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .response import Response
 from .result import Result
 from .inventory import Inventory
+from .sample import Sample
 
 
 
@@ -36,6 +37,7 @@ class Scale(models.Model):
     # items = models.ManyToManyField('Item', through='Question')
     # questions = models.ManyToManyField('Question')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    samples = models.ManyToManyField(Sample, through='Norm')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

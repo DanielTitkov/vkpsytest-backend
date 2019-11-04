@@ -79,6 +79,11 @@
     app_label: accounts
     model: profile
 - model: sessions.session
+  pk: 78df1bzpau350js9b0u8megl6qpcyydp
+  fields:
+    session_data: NTAwNDQyZjE2Y2ZjNmY2MmQ0MGUxNDViNGM4ZTlhZTkzMjJjYWJhNzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjOTdmMWZhYjYwNzAwMWUwOTMxNDY0Yjc0M2NkNGU4YWViNmYyNWQ2In0=
+    expire_date: 2019-11-18 18:21:07.925551+00:00
+- model: sessions.session
   pk: qnujctykp58chc8h5f6bl8nemvb4t657
   fields:
     session_data: NTAwNDQyZjE2Y2ZjNmY2MmQ0MGUxNDViNGM4ZTlhZTkzMjJjYWJhNzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjOTdmMWZhYjYwNzAwMWUwOTMxNDY0Yjc0M2NkNGU4YWViNmYyNWQ2In0=
@@ -513,7 +518,7 @@
   pk: 3
   fields:
     password: pbkdf2_sha256$150000$jamDpg1oEkad$DWY2C+aCciXjsK6i4ndGjzZXYL1g3j8QIAq4fGhuYik=
-    last_login: 2019-10-10 22:20:41.682017+00:00
+    last_login: 2019-11-04 18:21:07.921782+00:00
     is_superuser: true
     username: titkovd
     first_name: ''
@@ -540,23 +545,14 @@
     groups: []
     user_permissions: []
 - model: inventories.progress
-  pk: 1
-  fields:
-    user: 4
-    inventory: 2
-    data: {}
-    status: DONE
-    created: 2019-10-10 22:28:15.347821+00:00
-    updated: 2019-10-10 22:28:15.347842+00:00
-- model: inventories.progress
-  pk: 2
+  pk: 3
   fields:
     user: 4
     inventory: 1
     data: {}
     status: DONE
-    created: 2019-10-10 22:28:28.847178+00:00
-    updated: 2019-10-10 22:28:28.847228+00:00
+    created: 2019-11-04 18:35:08.257994+00:00
+    updated: 2019-11-04 18:35:08.258019+00:00
 - model: inventories.question
   pk: 1
   fields:
@@ -688,65 +684,25 @@
     created: 2019-09-12 18:24:45.816620+00:00
     updated: 2019-09-12 18:24:45.816640+00:00
 - model: inventories.result
-  pk: 1
-  fields:
-    scale: 3
-    user: 4
-    inventory: 2
-    value: 3.0
-    raw: 3.0
-    created: 2019-10-10 22:28:15.342796+00:00
-    updated: 2019-10-10 22:28:15.342817+00:00
-- model: inventories.result
-  pk: 2
+  pk: 7
   fields:
     scale: 1
     user: 4
     inventory: 1
-    value: 2.5
-    raw: 2.5
-    created: 2019-10-10 22:28:28.817669+00:00
-    updated: 2019-10-10 22:28:28.817701+00:00
+    value: 2.625
+    raw: 2.625
+    created: 2019-11-04 18:35:08.238759+00:00
+    updated: 2019-11-04 18:35:08.238788+00:00
 - model: inventories.result
-  pk: 3
+  pk: 8
   fields:
     scale: 2
     user: 4
     inventory: 1
-    value: 3.5
-    raw: 3.5
-    created: 2019-10-10 22:28:28.843403+00:00
-    updated: 2019-10-10 22:28:28.843446+00:00
-- model: inventories.result
-  pk: 4
-  fields:
-    scale: 2
-    user: 2
-    inventory: 1
-    value: 3.0
-    raw: 3.0
-    created: 2019-10-10 22:33:21.984810+00:00
-    updated: 2019-10-10 22:33:21.984832+00:00
-- model: inventories.result
-  pk: 5
-  fields:
-    scale: 2
-    user: 1
-    inventory: 1
-    value: 3.0
-    raw: 4.0
-    created: 2019-10-10 22:33:42.120783+00:00
-    updated: 2019-10-10 22:33:42.120817+00:00
-- model: inventories.result
-  pk: 6
-  fields:
-    scale: 2
-    user: 3
-    inventory: 1
-    value: 2.0
-    raw: 2.0
-    created: 2019-10-10 22:33:53.942821+00:00
-    updated: 2019-10-10 22:33:53.942850+00:00
+    value: 3.125
+    raw: 3.125
+    created: 2019-11-04 18:35:08.252478+00:00
+    updated: 2019-11-04 18:35:08.252521+00:00
 - model: inventories.response
   pk: 1
   fields:
@@ -877,39 +833,46 @@
     value: 4.0
     created: 2019-10-10 22:28:28.746581+00:00
     updated: 2019-10-10 22:28:28.746599+00:00
-- model: inventories.scale
-  pk: 1
+- model: inventories.response
+  pk: 14
   fields:
-    title: Fat Scale
-    description: Scale of how you fat
-    aggregation_method: AVG
-    standart_scale: NONE
-    normalization_method: NONE
-    author: 1
-    created: 2019-09-12 18:13:39.576543+00:00
-    updated: 2019-09-12 18:13:39.576565+00:00
-- model: inventories.scale
-  pk: 2
+    item: 1
+    user: 4
+    question: 1
+    inventory: 1
+    value: 4.0
+    created: 2019-11-04 18:35:08.125526+00:00
+    updated: 2019-11-04 18:35:08.125547+00:00
+- model: inventories.response
+  pk: 15
   fields:
-    title: Stupid scale
-    description: Scale of how you stupid
-    aggregation_method: AVG
-    standart_scale: NONE
-    normalization_method: NONE
-    author: 1
-    created: 2019-09-12 18:15:44.146172+00:00
-    updated: 2019-09-12 18:15:44.146192+00:00
-- model: inventories.scale
-  pk: 3
+    item: 2
+    user: 4
+    question: 2
+    inventory: 1
+    value: 2.0
+    created: 2019-11-04 18:35:08.129266+00:00
+    updated: 2019-11-04 18:35:08.129285+00:00
+- model: inventories.response
+  pk: 16
   fields:
-    title: Love for beans
-    description: Beany beany scale
-    aggregation_method: AVG
-    standart_scale: NONE
-    normalization_method: NONE
-    author: 2
-    created: 2019-09-12 18:25:04.612939+00:00
-    updated: 2019-09-12 18:25:04.612967+00:00
+    item: 3
+    user: 4
+    question: 3
+    inventory: 1
+    value: 2.0
+    created: 2019-11-04 18:35:08.133072+00:00
+    updated: 2019-11-04 18:35:08.133130+00:00
+- model: inventories.response
+  pk: 17
+  fields:
+    item: 4
+    user: 4
+    question: 4
+    inventory: 1
+    value: 2.0
+    created: 2019-11-04 18:35:08.138319+00:00
+    updated: 2019-11-04 18:35:08.138372+00:00
 - model: inventories.sample
   pk: 1
   fields:
@@ -1009,6 +972,39 @@
     updated: 2019-10-10 22:25:40.791413+00:00
     users:
     - 4
+- model: inventories.scale
+  pk: 1
+  fields:
+    title: Fat Scale
+    description: Scale of how you fat
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 1
+    created: 2019-09-12 18:13:39.576543+00:00
+    updated: 2019-09-12 18:13:39.576565+00:00
+- model: inventories.scale
+  pk: 2
+  fields:
+    title: Stupid scale
+    description: Scale of how you stupid
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 1
+    created: 2019-09-12 18:15:44.146172+00:00
+    updated: 2019-09-12 18:15:44.146192+00:00
+- model: inventories.scale
+  pk: 3
+  fields:
+    title: Love for beans
+    description: Beany beany scale
+    aggregation_method: AVG
+    standart_scale: NONE
+    normalization_method: NONE
+    author: 2
+    created: 2019-09-12 18:25:04.612939+00:00
+    updated: 2019-09-12 18:25:04.612967+00:00
 - model: accounts.profile
   pk: 1
   fields:
@@ -1091,3 +1087,83 @@
     object_repr: all-all-all-all
     action_flag: 2
     change_message: '[{"changed": {"fields": ["users"]}}]'
+- model: admin.logentry
+  pk: 8
+  fields:
+    action_time: 2019-11-04 18:34:34.323330+00:00
+    user: 3
+    content_type: 11
+    object_id: '6'
+    object_repr: Result of user titkovd in 'StupidTest'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 9
+  fields:
+    action_time: 2019-11-04 18:34:34.325882+00:00
+    user: 3
+    content_type: 11
+    object_id: '5'
+    object_repr: Result of user Focker in 'StupidTest'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 10
+  fields:
+    action_time: 2019-11-04 18:34:34.328578+00:00
+    user: 3
+    content_type: 11
+    object_id: '4'
+    object_repr: Result of user Boris in 'StupidTest'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 11
+  fields:
+    action_time: 2019-11-04 18:34:34.331188+00:00
+    user: 3
+    content_type: 11
+    object_id: '3'
+    object_repr: Result of user 7110301 in 'StupidTest'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 12
+  fields:
+    action_time: 2019-11-04 18:34:34.334035+00:00
+    user: 3
+    content_type: 11
+    object_id: '2'
+    object_repr: Result of user 7110301 in 'StupidTest'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 13
+  fields:
+    action_time: 2019-11-04 18:34:34.336998+00:00
+    user: 3
+    content_type: 11
+    object_id: '1'
+    object_repr: Result of user 7110301 in 'Simple Second'
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 14
+  fields:
+    action_time: 2019-11-04 18:34:48.145320+00:00
+    user: 3
+    content_type: 15
+    object_id: '2'
+    object_repr: Progress of 7110301 in StupidTest
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 15
+  fields:
+    action_time: 2019-11-04 18:34:48.148491+00:00
+    user: 3
+    content_type: 15
+    object_id: '1'
+    object_repr: Progress of 7110301 in Simple Second
+    action_flag: 3
+    change_message: ''

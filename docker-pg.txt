@@ -1,1 +1,1 @@
-docker run --rm --name pg -e POSTGRES_USER=vkpsytest -e POSTGRES_PASSWORD=vkpsytest -d -p 5432:5432 postgres
+docker run --name pg -e POSTGRES_USER=vkpsytest -e POSTGRES_PASSWORD=vkpsytest -d -p 5432:5432 postgres
