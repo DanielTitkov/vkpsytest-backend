@@ -125,7 +125,6 @@ class Scale(models.Model):
     
     @property
     def theoretical_norm(self) -> dict:
-        print("RUNNING THEORETICAL NORM")
         if self.normalization_method in ("NONE", "CTT"):
             questions = self.question_set.all()
             scale_min, scale_max = 0, 0
